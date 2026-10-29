@@ -1,0 +1,43 @@
+name: "Orange Fox builder"
+
+on:
+  workflow_dispatch:
+    inputs:
+      MANIFEST_BRANCH:
+        description: "OrangeFox branch"
+        required: true
+        default: "12.1"
+        type: choice
+        options: ["12.1", "14.1"]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+
+    steps:
+      - name: Setup Build Env
+        run: |
+          sudo apt-get update
+          git clone https://gitlab.com/OrangeFox/misc/scripts.git -b master ~/scripts
+          cd ~/scripts
+          sudo bash setup/android_build_env.sh
+
+      - name: Sync OrangeFox source
+        run: |
+          git clone https://gitlab.com/OrangeFox/sync.git -b master ~/sync
+          cd ~/sync
+          ./orangefox_sync.sh --branch ${{ inputs.MANIFEST_BRANCH }} --path ~/fox
+          
+      - name: Setup DT
+        working-directory: /home/runner/fox
+        run: |
+            git clone https://github.com/provasish/recovery_device_realme_RMX3371.git device/realme/RMX3371
+      - name: Build Ofox
+        working-directory: /home/runner/fox
+        run: |
+            source build/envsetup.sh
+            lunch twrp_RMX3371-eng
+            mka adbd recoveryimage
+        
