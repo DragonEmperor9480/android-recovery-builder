@@ -50,7 +50,11 @@ jobs:
             set +e
             source build/envsetup.sh
             set -e
-            lunch twrp_RMX3371-eng
+            if [ "${{ inputs.MANIFEST_BRANCH }}" = "14.1" ]; then
+              lunch twrp_RMX3371-ap2a-eng
+            else
+              lunch twrp_RMX3371-eng
+            fi
             mka adbd recoveryimage
         
       - name: Upload Build
