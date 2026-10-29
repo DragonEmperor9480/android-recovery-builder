@@ -17,6 +17,16 @@ jobs:
       contents: write
 
     steps:
+      - name: Free disk space
+        uses: jlumbroso/free-disk-space@v1.3.1
+        with:
+          tool-cache: true
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          swap-storage: false
+
       - name: Setup Build Env
         run: |
           sudo apt-get update
