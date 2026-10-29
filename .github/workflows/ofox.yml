@@ -37,7 +37,9 @@ jobs:
       - name: Build Ofox
         working-directory: /home/runner/fox
         run: |
+            set +e
             source build/envsetup.sh
+            set -e
             lunch twrp_RMX3371-eng
             mka adbd recoveryimage
         
