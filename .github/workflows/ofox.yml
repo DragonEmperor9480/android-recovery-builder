@@ -53,3 +53,11 @@ jobs:
             lunch twrp_RMX3371-eng
             mka adbd recoveryimage
         
+      - name: Upload Build
+        uses: actions/upload-artifact@v4
+        with:
+          name: OrangeFox-RMX3371-${{ github.run_number }}
+          if-no-files-found: error
+          path: |
+            /home/runner/fox/out/target/product/RMX3371/OrangeFox*.img
+            /home/runner/fox/out/target/product/RMX3371/OrangeFox*.zip
