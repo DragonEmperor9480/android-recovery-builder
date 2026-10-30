@@ -44,6 +44,10 @@ jobs:
         working-directory: /home/runner/fox
         run: |
             git clone https://github.com/DragonEmperor9480/recovery_device_realme_RMX3371.git device/realme/RMX3371
+      - name: Set black theme as default
+        working-directory: /home/runner/fox/bootable/recovery/gui/theme/portrait_hdpi/themes
+        run: cp styles/Black.xml style.xml
+
       - name: Add swap
         run: |
           sudo swapoff -a
