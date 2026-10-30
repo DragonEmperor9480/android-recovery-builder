@@ -44,6 +44,14 @@ jobs:
         working-directory: /home/runner/fox
         run: |
             git clone https://github.com/provasish/recovery_device_realme_RMX3371.git device/realme/RMX3371
+      - name: Add swap
+        run: |
+          sudo fallocate -l 24G /swapfile
+          sudo chmod 600 /swapfile
+          sudo mkswap /swapfile
+          sudo swapon /swapfile
+          free -h
+
       - name: Build Ofox
         working-directory: /home/runner/fox
         run: |
