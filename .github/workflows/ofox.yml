@@ -43,7 +43,7 @@ jobs:
       - name: Setup DT
         working-directory: /home/runner/fox
         run: |
-            git clone https://github.com/provasish/recovery_device_realme_RMX3371.git device/realme/RMX3371
+            git clone https://github.com/DragonEmperor9480/recovery_device_realme_RMX3371.git device/realme/RMX3371
       - name: Add swap
         run: |
           sudo swapoff -a
